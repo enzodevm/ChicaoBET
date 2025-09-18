@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChicaoBET</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="title">ChicaoBET</h1>
+    <nav>
+        <ul>
+            <li class="index" onclick="window.location.href='index.html'">Início</li>
+            <li class="deposit" onclick="Deposit()">Depósito</li>
+        </ul>
+    </nav>
+    <h3>Seu dinheiro: <span id="dindin"></span></h3>
+    <h1 class="games">Jogos</h1>
+    <button class="parouimpar" onclick="Jogo1()">Par ou Ímpar</button>
+
+    <script>
+        // Carregar saldo do localStorage, se não existir começa com 1
+        let money = parseInt(localStorage.getItem("money")) || 1;
+
+        function atualizarSaldo() {
+            document.getElementById("dindin").textContent = money;
+        }
+
+        function Deposit() {
+            money += 1; // adiciona 1
+            localStorage.setItem("money", money); // salva no localStorage
+            atualizarSaldo();
+            // se quiser redirecionar depois:
+            // window.location.href = "deposit.html";
+        }
+
+        function Jogo1() {
+            window.location.href = "./jogos/parouimpar/index.html";
+        }
+
+        // Mostrar saldo inicial ao abrir a página
+        atualizarSaldo();
+    </script>
+</body>
+</html>

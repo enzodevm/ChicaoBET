@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Par ou Ímpar - ChicaoBET</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <h1>Par ou Ímpar</h1>
+  <h3>Seu dinheiro: <span id="dindin"></span></h3>
+
+  <label>Escolha:</label>
+  <button onclick="jogar('par')">Par</button>
+  <button onclick="jogar('impar')">Ímpar</button>
+
+  <p id="resultado"></p>
+
+  <br>
+  <button onclick="window.location.href='../../index.html'">Voltar</button>
+
+  <script>
+    // Carregar saldo do localStorage
+    let money = parseInt(localStorage.getItem("money")) || 1;
+
+    function atualizarSaldo() {
+      document.getElementById("dindin").textContent = money;
+    }
+
+    function jogar(escolha) {
+      if (money <= 0) {
+        document.getElementById("resultado").textContent = "Você não tem dinheiro para apostar!";
+        return;
+      }
+
+      // Aposta custa 1
+      money -= 1;
+
+      // Número aleatório entre 0 e 9
+      let numero = Math.floor(Math.random() * 10);
+      let resultado = numero % 2 === 0 ? "par" : "impar";
+
+      if (escolha === resultado) {
+        // Ganha 2 de volta
+        money += 2;
+        document.getElementById("resultado").textContent = 
+          `O número foi ${numero} (${resultado}). Você ganhou!`;
+      } else {
+        document.getElementById("resultado").textContent = 
+          `O número foi ${numero} (${resultado}). Você perdeu!`;
+      }
+
+      // Salvar e atualizar
+      localStorage.setItem("money", money);
+      atualizarSaldo();
+    }
+
+    // Mostrar saldo inicial
+    atualizarSaldo();
+  </script>
+</body>
+</html>
